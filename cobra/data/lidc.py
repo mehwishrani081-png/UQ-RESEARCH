@@ -5,6 +5,20 @@ import numpy as np
 from .common import CommonSample, SampleMeta
 from .splits import patient_split
 
+def _scanner_manufacturer(scan):
+    try:
+        import pydicom
+        files = sorted(Path(scan.get_path_to_dicom_files()).glob("*"))
+        for path in files:
+            if path.is_file():
+                ds = pydicom.dcmread(str(path), stop_before_pixels=True, force=True)
+                value = getattr(ds, "Manufacturer", None)
+                if value:
+                    return str(value).strip()
+    except Exception as exc:
+        raise LIDCDataError(f"Could not read scanner Manufacturer for {scan.patient_id}: {exc}") from exc
+    raise LIDCDataError(f"Scanner Manufacturer missing for {scan.patient_id}")
+
 class LIDCDataError(RuntimeError):
     pass
 
@@ -95,6 +109,6 @@ def build_lidc_samples(root, *, target_spacing_mm=.7, hu_low=-1000,
                 marked=int(np.any(mm.astype(bool),axis=(1,2)).sum())
                 samples.append(CommonSample(im,mm,SampleMeta(
                     scan.patient_id,f"{scan.patient_id}-nodule-{ni}-slice-{int(z)}",
-                    4,marked,str(getattr(scan,"manufacturer","UNKNOWN") or "UNKNOWN"),
+                    4,marked,_scanner_manufacturer(scan),
                     (float(target_spacing_mm),float(target_spacing_mm)))))
     return samples, splits
