@@ -1,0 +1,41 @@
+schema_version: cobra-phase2-v1
+project:
+  name: CoBra
+  root: .
+  output_directory: data/processed
+datasets:
+  lidc:
+    enabled: true
+    root: NOT_CONFIGURED
+    output_subdir: lidc
+    pylidc_config_dir: NOT_CONFIGURED
+    target_spacing_mm: 0.7
+    hu_low: -1000
+    hu_high: 400
+    crop_height: 128
+    crop_width: 128
+  riga:
+    enabled: true
+    root: NOT_CONFIGURED
+    output_subdir: riga
+    target_height: 256
+    target_width: 256
+    target: cup
+  qubiq:
+    enabled: true
+    root: NOT_CONFIGURED
+    output_subdir: qubiq
+    tasks:
+      - prostate
+      - brain-growth
+split:
+  seed: 20261003
+  train_fraction: 0.50
+  validation_fraction: 0.10
+  pool_fraction: 0.40
+  pool_is_not_presplit: true
+reproducibility:
+  deterministic: true
+  save_config_copy: true
+  save_git_commit: true
+  save_package_versions: true
