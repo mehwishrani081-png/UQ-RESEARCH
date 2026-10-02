@@ -1,0 +1,19 @@
+schema_version: cobra-phase0-v1
+project:
+  name: CoBra
+  root: .
+  notes_file: NOTES.md
+  output_directory: .phase0_run
+dataset:
+  name: LIDC-IDRI
+  root: NOT_CONFIGURED
+split:
+  seed: 20261003
+model:
+  name: NOT_CONFIGURED
+reproducibility:
+  seed: 20261003
+  deterministic: true
+  save_config_copy: true
+  save_git_commit: true
+  save_package_versions: true
