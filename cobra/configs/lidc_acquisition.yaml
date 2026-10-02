@@ -1,0 +1,11 @@
+schema_version: cobra-lidc-acquisition-v1
+dataset:
+  name: LIDC-IDRI
+  manifest: NOT_CONFIGURED
+  xml_archive: NOT_CONFIGURED
+  dicom_root: NOT_CONFIGURED
+policy:
+  medical_data_in_git: false
+  require_series_uid_overlap: true
+validation:
+  fail_if_no_overlap: true
