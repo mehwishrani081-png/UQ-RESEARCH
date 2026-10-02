@@ -1,0 +1,19 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+.env
+.DS_Store
+
+# Scientific data and generated artifacts are never committed
+data/raw/*
+data/processed/*
+data/*.dcm
+results/
+outputs/
+*.npz
+*.npy
+*.pt
+*.pth
+
+.phase0_run/
